@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs')
-const generateShapes = require("./lib/shapes");
+const {Circle, Triangle, Square} = require("./lib/shapes");
 
 inquirer
     .prompt([
@@ -23,7 +23,7 @@ inquirer
           {
             type: 'input',
             name: 'shape color',
-            message: 'Please enter your shape color',
+            message: 'Please enter shape color',
         },
     ])
     .then((answers) => {
