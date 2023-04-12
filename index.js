@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs')
-const {Circle, Triangle, Square} = require("./lib/shapes");
+const generateSvg = require("./lib/shapes");
 
 inquirer
     .prompt([
@@ -8,11 +8,14 @@ inquirer
             type: 'input',
             name: 'text',
             message: 'Enter 3 characters for your logo:',
+            validate: function(value){
+                return value.length <= 3;
+            }
         },
         {
             type: 'input',
-            name: 'text color',
-            message: 'Please enter your text color:',
+            name: 'textColor',
+            message: 'Enter the text color:',
         },
         {
             type: "list",
@@ -22,18 +25,14 @@ inquirer
           },
           {
             type: 'input',
-            name: 'shape color',
-            message: 'Please enter shape color',
+            name: 'shapeColor',
+            message: 'Please enter the shape color:',
         },
     ])
     .then((answers) => {
-        const svgContent = generateShapes(answers);
+        const svgContent = generateSvg(answers);
 
         fs.writeFile('logo.svg', svgContent, err =>{
-            if (err){
-                console.log(err);
-                return
-            }
-            console.log('Logo saved as a logo.svg');
+            err ? console.error(err) : console.log('Generated logo.svg')
         })
     })
