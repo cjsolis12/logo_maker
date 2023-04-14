@@ -2,6 +2,12 @@ const inquirer = require('inquirer');
 const fs = require('fs')
 const generateSvg = require("./lib/shapes");
 
+//Test for valid color chosen by user
+const colorValidator = (value) => {
+const isValid = /^([a-z]+|\#[0-9A-Fa-f]{6}|\#[0-9A-Fa-f]{3})$/i.test(value);
+return isValid ? true : 'Please enter a valid color name or hexadecimal code';
+}
+
 inquirer
     .prompt([
         {
@@ -16,6 +22,7 @@ inquirer
             type: 'input',
             name: 'textColor',
             message: 'Enter the text color:',
+            validate: colorValidator,
         },
         {
             type: "list",
@@ -27,6 +34,7 @@ inquirer
             type: 'input',
             name: 'shapeColor',
             message: 'Please enter the shape color:',
+            validate: colorValidator,
         },
     ])
     .then((answers) => {
