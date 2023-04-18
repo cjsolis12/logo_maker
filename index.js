@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs')
-const generateSvg = require("./lib/shapes");
+const shapeUtil = require("./lib/shapes");
 
 //Test for valid color chosen by user
 const colorValidator = (value) => {
@@ -38,7 +38,7 @@ inquirer
         },
     ])
     .then((answers) => {
-        const svgContent = generateSvg(answers);
+        const svgContent = shapeUtil.generateSvg(answers);
 
         fs.writeFile('logo.svg', svgContent, err =>{
             err ? console.error(err) : console.log('Generated logo.svg')
